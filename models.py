@@ -1,13 +1,14 @@
 from pydantic import BaseModel, EmailStr
 from datetime import datetime
 
-class Customer(BaseModel):
-    id: int
+class CustomerBase(BaseModel):
     name: str
     description: str | None
     email: EmailStr
     age: int
 
+class Customer(CustomerBase):
+    id: int | None = None
 
 class Trasaction(BaseModel):
     id: int
@@ -25,3 +26,7 @@ class Invoice(BaseModel):
     @property
     def ammount_total(self):
         return sum(transaction.amount for transaction in self.transactions)
+    
+
+class CustomerCreate(CustomerBase):
+    pass
